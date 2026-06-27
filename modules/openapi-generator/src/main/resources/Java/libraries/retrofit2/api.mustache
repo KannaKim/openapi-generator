@@ -19,6 +19,9 @@ import io.reactivex.rxjava3.core.Completable;
 {{#doNotUseRx}}
 import retrofit2.Call;
 {{/doNotUseRx}}
+{{#wrapFileResponseWithResponseWhenHeadersPresent}}
+import retrofit2.Response;
+{{/wrapFileResponseWithResponseWhenHeadersPresent}}
 import retrofit2.http.*;
 
 import okhttp3.RequestBody;
@@ -48,7 +51,7 @@ public interface {{classname}} {
 {{#allParams}}
    * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}
 {{/allParams}}
-   * @return {{^doNotUseRx}}{{#useRxJava2}}{{#returnType}}Observable&lt;{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}&gt;{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava2}}{{#useRxJava3}}{{#returnType}}Observable&lt;{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}&gt;{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava3}}{{/doNotUseRx}}{{#doNotUseRx}}Call&lt;{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{^returnType}}Void{{/returnType}}{{/isResponseFile}}&gt;{{/doNotUseRx}}
+   * @return {{^doNotUseRx}}{{#useRxJava2}}{{#returnType}}Observable&lt;{{#isResponseFile}}{{#wrapFileResponseWithResponseWhenHeadersPresent}}{{#hasResponseHeaders}}Response&lt;ResponseBody&gt;{{/hasResponseHeaders}}{{^hasResponseHeaders}}ResponseBody{{/hasResponseHeaders}}{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{^wrapFileResponseWithResponseWhenHeadersPresent}}ResponseBody{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}&gt;{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava2}}{{#useRxJava3}}{{#returnType}}Observable&lt;{{#isResponseFile}}{{#wrapFileResponseWithResponseWhenHeadersPresent}}{{#hasResponseHeaders}}Response&lt;ResponseBody&gt;{{/hasResponseHeaders}}{{^hasResponseHeaders}}ResponseBody{{/hasResponseHeaders}}{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{^wrapFileResponseWithResponseWhenHeadersPresent}}ResponseBody{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}&gt;{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava3}}{{/doNotUseRx}}{{#doNotUseRx}}Call&lt;{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{^returnType}}Void{{/returnType}}{{/isResponseFile}}&gt;{{/doNotUseRx}}
 {{#isDeprecated}}
    * @deprecated
 {{/isDeprecated}}
@@ -75,7 +78,7 @@ public interface {{classname}} {
   {{/prioritizedContentTypes}}
   {{/formParams}}
   @{{httpMethod}}("{{{path}}}")
-  {{^doNotUseRx}}{{#useRxJava2}}{{#returnType}}Observable<{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava2}}{{#useRxJava3}}{{#returnType}}Observable<{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava3}}{{/doNotUseRx}}{{#doNotUseRx}}Call<{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{^returnType}}Void{{/returnType}}{{/isResponseFile}}>{{/doNotUseRx}} {{operationId}}({{^allParams}});{{/allParams}}
+  {{^doNotUseRx}}{{#useRxJava2}}{{#returnType}}Observable<{{#isResponseFile}}{{#wrapFileResponseWithResponseWhenHeadersPresent}}{{#hasResponseHeaders}}Response<ResponseBody>{{/hasResponseHeaders}}{{^hasResponseHeaders}}ResponseBody{{/hasResponseHeaders}}{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{^wrapFileResponseWithResponseWhenHeadersPresent}}ResponseBody{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava2}}{{#useRxJava3}}{{#returnType}}Observable<{{#isResponseFile}}{{#wrapFileResponseWithResponseWhenHeadersPresent}}{{#hasResponseHeaders}}Response<ResponseBody>{{/hasResponseHeaders}}{{^hasResponseHeaders}}ResponseBody{{/hasResponseHeaders}}{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{^wrapFileResponseWithResponseWhenHeadersPresent}}ResponseBody{{/wrapFileResponseWithResponseWhenHeadersPresent}}{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava3}}{{/doNotUseRx}}{{#doNotUseRx}}Call<{{#isResponseFile}}ResponseBody{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{^returnType}}Void{{/returnType}}{{/isResponseFile}}>{{/doNotUseRx}} {{operationId}}({{^allParams}});{{/allParams}}
     {{#allParams}}{{>libraries/retrofit2/queryParams}}{{>libraries/retrofit2/pathParams}}{{>libraries/retrofit2/headerParams}}{{>libraries/retrofit2/bodyParams}}{{>libraries/retrofit2/formParams}}{{^-last}}, {{/-last}}{{#-last}}
   );{{/-last}}{{/allParams}}
 

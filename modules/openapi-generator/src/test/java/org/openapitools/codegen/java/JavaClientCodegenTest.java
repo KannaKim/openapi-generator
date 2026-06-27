@@ -277,6 +277,22 @@ public class JavaClientCodegenTest {
     }
 
     @Test
+    public void testWrapFileResponseWithResponseWhenHeadersPresentAdditionalProperty() {
+        final JavaClientCodegen codegen = new JavaClientCodegen();
+
+        codegen.processOpts();
+
+        ConfigAssert configAssert = new ConfigAssert(codegen.additionalProperties());
+        configAssert.assertValue(JavaClientCodegen.WRAP_FILE_RESPONSE_WITH_RESPONSE_WHEN_HEADERS_PRESENT, codegen::isWrapFileResponseWithResponseWhenHeadersPresent, Boolean.FALSE);
+
+        codegen.additionalProperties().put(JavaClientCodegen.WRAP_FILE_RESPONSE_WITH_RESPONSE_WHEN_HEADERS_PRESENT, true);
+        codegen.processOpts();
+
+        configAssert.assertValue(JavaClientCodegen.WRAP_FILE_RESPONSE_WITH_RESPONSE_WHEN_HEADERS_PRESENT, codegen::isWrapFileResponseWithResponseWhenHeadersPresent, Boolean.TRUE);
+    }
+
+
+    @Test
     public void testAdditionalPropertiesPutForConfigValues() throws Exception {
         final JavaClientCodegen codegen = new JavaClientCodegen();
         codegen.additionalProperties().put(CodegenConstants.HIDE_GENERATION_TIMESTAMP, "true");

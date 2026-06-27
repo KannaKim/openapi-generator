@@ -1,0 +1,21 @@
+openapi: 3.0.3
+info:
+  title: Binary Download with Headers API
+  version: 1.0.0
+paths:
+  /download:
+    get:
+      summary: Download a binary file with Content-Disposition header
+      operationId: downloadFile
+      responses:
+        "200":
+          description: OK
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary

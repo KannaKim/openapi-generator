@@ -87,6 +87,7 @@ public class JavaClientCodegen extends AbstractJavaCodegen
     public static final String SUPPORT_URL_QUERY = "supportUrlQuery";
     public static final String GRADLE_PROPERTIES = "gradleProperties";
     public static final String ERROR_OBJECT_TYPE = "errorObjectType";
+    public static final String WRAP_FILE_RESPONSE_WITH_RESPONSE_WHEN_HEADERS_PRESENT = "wrapFileResponseWithResponseWhenHeadersPresent";
 
     public static final String FEIGN = "feign";
     public static final String FEIGN_HC5 = "feign-hc5";
@@ -181,6 +182,7 @@ public class JavaClientCodegen extends AbstractJavaCodegen
     protected boolean webclientBlockingOperations = false;
     @Setter protected boolean generateClientAsBean = false;
     @Setter protected boolean useEnumCaseInsensitive = false;
+    @Getter @Setter protected boolean wrapFileResponseWithResponseWhenHeadersPresent = false;
 
     @Setter protected int maxAttemptsForRetry = 1;
     @Setter protected long waitTimeMillis = 10l;
@@ -286,6 +288,7 @@ public class JavaClientCodegen extends AbstractJavaCodegen
         cliOptions.add(CliOption.newBoolean(USE_UNARY_INTERCEPTOR, "If true it will generate ResponseInterceptors using a UnaryOperator. This can be usefull for manipulating the request before it gets passed, for example doing your own decryption", this.useUnaryInterceptor));
         cliOptions.add(CliOption.newBoolean(USE_JSPECIFY, "Use Jspecify for null checks. Only supported for " + JSPECIFY_SUPPORTED_LIBRARIES, useJspecify));
         cliOptions.add(CliOption.newBoolean(USE_DEDUCTION_FOR_ONE_OF_INTERFACES, USE_DEDUCTION_FOR_ONE_OF_INTERFACES_DESC, useDeductionForOneOfInterfaces));
+        cliOptions.add(CliOption.newBoolean(WRAP_FILE_RESPONSE_WITH_RESPONSE_WHEN_HEADERS_PRESENT, "Whether to wrap a file response with retrofit2.Response when response headers are present.", this.wrapFileResponseWithResponseWhenHeadersPresent));
 
         supportedLibraries.put(JERSEY2, "HTTP client: Jersey client 2.25.1. JSON processing: Jackson 2.17.1");
         supportedLibraries.put(JERSEY3, "HTTP client: Jersey client 3.1.11. JSON processing: Jackson 2.x (3.x if `useJackson3=true`, requires Java 17+)");
@@ -520,6 +523,7 @@ public class JavaClientCodegen extends AbstractJavaCodegen
 
         convertPropertyToBooleanAndWriteBack(GENERATE_CLIENT_AS_BEAN, this::setGenerateClientAsBean);
         convertPropertyToBooleanAndWriteBack(USE_ENUM_CASE_INSENSITIVE, this::setUseEnumCaseInsensitive);
+        convertPropertyToBooleanAndWriteBack(WRAP_FILE_RESPONSE_WITH_RESPONSE_WHEN_HEADERS_PRESENT, this::setWrapFileResponseWithResponseWhenHeadersPresent);
         convertPropertyToTypeAndWriteBack(CodegenConstants.MAX_ATTEMPTS_FOR_RETRY, Integer::parseInt, this::setMaxAttemptsForRetry);
         convertPropertyToTypeAndWriteBack(CodegenConstants.WAIT_TIME_OF_THREAD, Long::parseLong, this::setWaitTimeMillis);
 
