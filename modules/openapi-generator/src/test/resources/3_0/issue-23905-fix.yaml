@@ -1,0 +1,75 @@
+{
+    "info": {
+        "description": "Test",
+        "title": "test",
+        "version": "1.0"
+    },
+    "openapi": "3.1.0",
+    "servers": [
+        {
+            "url": "http://localhost:5000"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "Response": {
+                "title": "Response",
+                "type": "object",
+                "properties": {
+                    "nullable": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "nullable"
+                ]
+            },
+            "ResponseGet": {
+                "title": "ResponseGet",
+                "type": "object",
+                "properties": {
+                    "nonNullable": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "nullable": false
+                        }
+                    }
+                },
+                "required": [
+                    "nonNullable"
+                ]
+            }
+        }
+    },
+    "paths": {
+        "/api": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseGet"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}
